@@ -34,7 +34,7 @@ in rec {
       ref = "master";
     };
 
-    "0.16.0" = getDappPkgsSrc {
+    dapp-0_16_0 = getDappPkgsSrc {
       rev = "6943c76bfb8e0b1fce54c3d9bba6f0f7e50d2f5c";
       ref = "dapp/0.16.0";
     };
