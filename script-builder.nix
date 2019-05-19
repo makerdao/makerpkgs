@@ -16,9 +16,10 @@ in
 
 overrideOverrideAttrs (
 { name
-, deps ? []
+, solidityPackages ? []
 , extraBins ? []
 , scriptEnv ? {}
+, passthru ? {}
 , ... } @ args:
 
 let
@@ -29,15 +30,15 @@ let
     dapp ethsign seth mcd-cli
   ] ++ extraBins;
 
-  # Symlink all contract deps into one directory
+  # Symlink all solidity packages into one directory
   depsMerged = symlinkJoin {
-    name = "${name}-solidity-deps";
-    paths = deps;
+    name = "${name}-solidity-packages";
+    paths = solidityPackages;
   };
 
-  scriptEnv' = (lib.optionalAttrs ((length deps) == 1)
+  scriptEnv' = (lib.optionalAttrs ((length solidityPackages) == 1)
     (let
-      singleDep = elemAt deps 0;
+      singleDep = elemAt solidityPackages 0;
     in {
       DAPP_OUT = "${depsMerged}/dapp/${singleDep.name}/out";
     })) // scriptEnv;
@@ -118,4 +119,8 @@ in stdenv.mkDerivation ({
   checkPhase = ''
     ${shellcheck}/bin/shellcheck $out/bin/*
   '';
-} // (removeAttrs args [ "deps" "extraBins" "scriptEnv" ])))
+
+  passthru = {
+    inherit solidityPackages;
+  } // passthru;
+} // (removeAttrs args [ "solidityPackages" "extraBins" "scriptEnv" "passthru" ])))
