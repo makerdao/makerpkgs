@@ -23,12 +23,12 @@ in rec {
     url = "https://github.com/dapphub/dapptools";
   };
 
-  getDappPkgs = dappPkgsSrc:
+  mkPkgs = { extraOverlays ? [] }: dappPkgsSrc:
     import pkgsSrc {
       overlays = [
         (import "${dappPkgsSrc}/overlay.nix")
         (import ./maker.nix)
-      ];
+      ] ++ extraOverlays;
     };
 
   dappPkgsSrcs = {
@@ -43,6 +43,14 @@ in rec {
     };
   };
 
-  pkgs = getDappPkgs dappPkgsSrcs.latest;
-  pkgsVersions = mapAttrs (_: getDappPkgs) dappPkgsSrcs;
+  pkgsVersions = mapAttrs (_: mkPkgs {}) dappPkgsSrcs;
+
+  pkgs = mkPkgs {
+    extraOverlays = [
+      (self: super: {
+        # Use HEVM from dapp/0.16.0 instead of latest for running tests
+        inherit (pkgsVersions.dapp-0_16_0) dapp2;
+      })
+    ];
+  } dappPkgsSrcs.latest;
 }
