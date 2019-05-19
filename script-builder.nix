@@ -121,6 +121,6 @@ in stdenv.mkDerivation ({
   '';
 
   passthru = {
-    inherit solidityPackages;
+    inherit solidityPackages bins;
   } // passthru;
 } // (removeAttrs args [ "solidityPackages" "extraBins" "scriptEnv" "passthru" ])))
