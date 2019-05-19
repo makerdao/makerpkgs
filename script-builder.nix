@@ -55,14 +55,10 @@ in stdenv.mkDerivation ({
   );
 
   installPhase = ''
-    set -x
-
     binDir=$out/bin
     libDir=$out/lib
     libexecDir=$out/libexec
     configDir=$out/share/config
-
-    # s|^(cd (?:.*/)*([^/\n\r]+))$|\1;export DAPP_OUT=\$DAPP_LIB/\2/out;|;
 
     patchBin_() {
       if [ "$patchBin" ]; then $patchBin; else cat; fi
@@ -117,8 +113,6 @@ in stdenv.mkDerivation ({
       mkdir -p ''${dest%/*}
       cp -v $config $dest
     done
-
-    set +x
   '';
 
   checkPhase = ''
