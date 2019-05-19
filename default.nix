@@ -23,10 +23,13 @@ in rec {
     url = "https://github.com/dapphub/dapptools";
   };
 
-  getDappPkgs = dappPkgsSrc: let
-    pkgs = import pkgsSrc { overlays = [ (import "${dappPkgsSrc}/overlay.nix") ]; };
-  in
-    pkgs // (import ./maker.nix pkgs);
+  getDappPkgs = dappPkgsSrc:
+    import pkgsSrc {
+      overlays = [
+        (import "${dappPkgsSrc}/overlay.nix")
+        (import ./maker.nix)
+      ];
+    };
 
   dappPkgsSrcs = {
     latest = getDappPkgsSrc {
