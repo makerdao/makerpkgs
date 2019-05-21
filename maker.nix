@@ -17,5 +17,12 @@ self: super: with super;
     rev = "bff040c2bc8d4cb862c47bb3d6f6e74a9c9d83b2";
   }) { inherit pkgs; };
 
-  makerScriptPackage = self.callPackage ./script-builder.nix {};
+  makerCommonScriptBins = with self; [
+    coreutils gnugrep gnused findutils
+    bc jq
+    solc
+    dapp ethsign seth mcd-cli
+  ];
+
+  makerScriptPackage = self.callPackage ./script-builder.nix { };
 }

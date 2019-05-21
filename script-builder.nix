@@ -1,9 +1,6 @@
 { lib, stdenv, symlinkJoin, writeScriptBin, makeWrapper
-
-, coreutils, gnugrep, gnused, findutils
-, perl, bc, jq, shellcheck
-, solc
-, dapp, ethsign, seth, mcd-cli
+, perl, shellcheck
+, makerCommonScriptBins
 }:
 
 let
@@ -23,12 +20,7 @@ overrideOverrideAttrs (
 , ... } @ args:
 
 let
-  bins = [
-    coreutils gnugrep gnused findutils
-    bc jq
-    solc
-    dapp ethsign seth mcd-cli
-  ] ++ extraBins;
+  bins = makerCommonScriptBins ++ extraBins;
 
   # Symlink all solidity packages into one directory
   depsMerged = symlinkJoin {
@@ -117,7 +109,7 @@ in stdenv.mkDerivation ({
   '';
 
   checkPhase = ''
-    ${shellcheck}/bin/shellcheck $out/bin/*
+    ${shellcheck}/bin/shellcheck $out/bin/* $out/libexec/* $out/lib/*
   '';
 
   passthru = {
