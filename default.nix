@@ -49,7 +49,7 @@ in rec {
     extraOverlays = [
       (self: super: {
         # Use HEVM from dapp/0.16.0 instead of latest for running tests
-        inherit (pkgsVersions.dapp-0_16_0) dapp2;
+        inherit (pkgsVersions.dapp-0_16_0) dapp2 seth dapp;
       })
     ];
   } dappPkgsSrcs.latest;
