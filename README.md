@@ -5,7 +5,7 @@ Create a `pkgs.nix` file with and update `rev` to a relevant commit hash:
 ```
 import (fetchGit {
   url = "https://github.com/makerdao/nixpkgs-pin";
-  rev = "4efe019f8f07e84438560832e5b7c9274c601ade";
+  rev = "3f2f1a1530ef8a2ae5bae28d9b7128d67d0a4e01";
   ref = "master";
 })
 ```
