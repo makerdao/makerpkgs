@@ -41,16 +41,33 @@ in rec {
       rev = "6943c76bfb8e0b1fce54c3d9bba6f0f7e50d2f5c";
       ref = "dapp/0.16.0";
     };
+
+    dapp-0_18_0 = getDappPkgsSrc {
+      rev = "deb8b07972a28c4753c82215ed0c0c5b94cb8e31";
+      ref = "dapp/0.18.0";
+    };
+
+    dapp-0_18_1 = getDappPkgsSrc {
+      rev = "7207c0a92f0aaa19b60c84c14c1ed078892b0436";
+      ref = "dapp/0.18.1";
+    };
   };
 
   pkgsVersions = mapAttrs (_: mkPkgs {}) dappPkgsSrcs;
 
   pkgs = mkPkgs {
     extraOverlays = [
-      (self: super: {
-        # Use HEVM from dapp/0.16.0 instead of latest for running tests
-        inherit (pkgsVersions.dapp-0_16_0) dapp2 seth dapp;
+      (self: super: rec {
+        # Packages overrides
+
+        # Use HEVM from dapp/0.16.0 instead of >=dapp/0.18.0 for running tests
+        # becuase there seems to be a bug that fails contract tests.
+        inherit (pkgsVersions.dapp-0_16_0) dapp2;
+
+        # Use `solidityPackage` expression from >dapp/0.18.1 becuase missing
+        # features not yet in tagged version of dapptools.
+        inherit (pkgsVersions.latest) solidityPackage;
       })
     ];
-  } dappPkgsSrcs.latest;
+  } dappPkgsSrcs.dapp-0_18_1;
 }
