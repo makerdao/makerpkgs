@@ -14,7 +14,8 @@ self: super: with super;
 
   dapp2nix = import (fetchGit {
     url = https://github.com/icetan/dapp2nix.git;
-    rev = "bff040c2bc8d4cb862c47bb3d6f6e74a9c9d83b2";
+    rev = "187d4f6f0e452d9dfc324c4943ce7896b489b158";
+    ref = "v0.1.0";
   }) { inherit pkgs; };
 
   makerCommonScriptBins = with self; [
