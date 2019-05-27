@@ -5,6 +5,7 @@
     url = "https://github.com/nixos/nixpkgs/archive/185ab27b8a2ff2c7188bc29d056e46b25dd56218.tar.gz";
     sha256 = "0bflmi7w3gas9q8wwwwbnz79nkdmiv2c1bpfc3xyplwy8npayxh2";
   },
+  dappSrcOverrides ? {}
 }:
 
 let
@@ -31,9 +32,11 @@ in rec {
       ] ++ extraOverlays;
     };
 
-  dappPkgsSrcs = {
+  dappPkgsSrcs = rec {
+    current = latest;
+
     latest = getDappPkgsSrc {
-      rev = "af5953f004fe1edfb41dcc4a90a5340191078ce1";
+      rev = "9f192938fcfec290ce63e50568e10c674a701d6d";
       ref = "master";
     };
 
@@ -51,7 +54,17 @@ in rec {
       rev = "7207c0a92f0aaa19b60c84c14c1ed078892b0436";
       ref = "dapp/0.18.1";
     };
-  };
+
+    dapp-0_19_0 = getDappPkgsSrc {
+      rev = "10388fb8083e9b3aff53a48afb65c746ade7093b";
+      ref = "master";
+    };
+
+    dapp_hevm-0_28 = getDappPkgsSrc {
+      rev = "214632b08a39872d50ceb3a726b0ca2d70d19e06";
+      ref = "master";
+    };
+  } // dappSrcOverrides;
 
   pkgsVersions = mapAttrs (_: mkPkgs {}) dappPkgsSrcs;
 
@@ -60,10 +73,10 @@ in rec {
       (self: super: rec {
         # Packages overrides
 
-        # Use `solidityPackage` expression from >dapp/0.18.1 becuase missing
-        # features not yet in tagged version of dapptools.
-        inherit (pkgsVersions.latest) solidityPackage;
+        # Use HEVM 0.28 for running tests, because there seems to be a bug that
+        # fails some tests incorrectly.
+        inherit (pkgsVersions.dapp_hevm-0_28) dapp2;
       })
     ];
-  } dappPkgsSrcs.dapp-0_16_0;
+  } dappPkgsSrcs.current;
 }
