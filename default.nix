@@ -38,14 +38,8 @@ in rec {
     current = dapp_hevm-0_28;
 
     latest = getDappPkgsSrc {
-      rev = "9f192938fcfec290ce63e50568e10c674a701d6d";
+      rev = "41029f1ed325aaad71463f9ad4b43d176778dca7";
       ref = "master";
-    };
-
-    nix-pass-solc-flags = fetchGit {
-      url = "https://github.com/icetan/dapptools";
-      rev = "a22c4484d3e9c2f11f125bc75c3e106da8d837cf";
-      ref = "nix-pass-solc-flags";
     };
 
     dapp-0_16_0 = getDappPkgsSrc {
@@ -83,7 +77,7 @@ in rec {
 
         # Use `solidityPackage` expression from >dapp/0.18.1 becuase missing
         # features not yet in tagged version of dapptools.
-        inherit (pkgsVersions.nix-pass-solc-flags) solidityPackage;
+        inherit (pkgsVersions.latest) solidityPackage;
       })
     ];
   } dappPkgsSrcs.current;
