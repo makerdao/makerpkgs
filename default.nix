@@ -5,7 +5,7 @@
     url = "https://github.com/nixos/nixpkgs/archive/185ab27b8a2ff2c7188bc29d056e46b25dd56218.tar.gz";
     sha256 = "0bflmi7w3gas9q8wwwwbnz79nkdmiv2c1bpfc3xyplwy8npayxh2";
   },
-  dapptoolsOverrides ? {}
+  currentOverride ? {}
 }:
 
 let
@@ -66,7 +66,7 @@ in rec {
       rev = "214632b08a39872d50ceb3a726b0ca2d70d19e06";
       ref = "master";
     };
-  } // dapptoolsOverrides;
+  };
 
   pkgsVersions = mapAttrs (_: mkPkgs {}) dapptoolsVersions;
 
@@ -80,5 +80,5 @@ in rec {
         inherit (pkgsVersions.latest) solidityPackage;
       })
     ];
-  } dapptoolsVersions.current;
+  } dapptoolsVersions.current // currentOverride;
 }
