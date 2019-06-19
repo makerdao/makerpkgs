@@ -33,13 +33,11 @@ in rec {
     };
 
   dapptoolsVersions = rec {
-    # Use HEVM 0.28 for running tests, because there seems to be a bug that
-    # fails some tests incorrectly.
-    current = hevm-0_28;
+    current = latest;
 
     latest = fetchDapptoolsVersion {
-      rev = "41029f1ed325aaad71463f9ad4b43d176778dca7";
-      ref = "master";
+      rev = "5fd1c522e1ea672214544718cc0699cf058c04f7";
+      ref = "hevm/0.32";
     };
 
     dapp-0_16_0 = fetchDapptoolsVersion {
@@ -70,15 +68,5 @@ in rec {
 
   pkgsVersions = mapAttrs (_: mkPkgs {}) dapptoolsVersions;
 
-  pkgs = mkPkgs {
-    extraOverlays = [
-      (self: super: rec {
-        # Packages overrides
-
-        # Use `solidityPackage` expression from >dapp/0.18.1 becuase missing
-        # features not yet in tagged version of dapptools.
-        inherit (pkgsVersions.latest) solidityPackage;
-      })
-    ];
-  } dapptoolsVersions.current;
+  pkgs = pkgsVersions.current;
 }
