@@ -10,8 +10,8 @@ in
     current = latest;
 
     latest = fetchDapptoolsVersion {
-      rev = "5fd1c522e1ea672214544718cc0699cf058c04f7";
-      ref = "hevm/0.32";
+      rev = "c88acbf2cd65fb7704974bbb1032d916699f98fd";
+      ref = "master";
     };
 
     dapp-0_16_0 = fetchDapptoolsVersion {
