@@ -1,9 +1,9 @@
 {
   pkgsSrc ? fetchTarball {
-    name = "nixpkgs-18.09";
+    name = "nixpkgs-19.03";
     # pin the current release-18.09 commit taken from dapptools
-    url = "https://github.com/nixos/nixpkgs/archive/185ab27b8a2ff2c7188bc29d056e46b25dd56218.tar.gz";
-    sha256 = "0bflmi7w3gas9q8wwwwbnz79nkdmiv2c1bpfc3xyplwy8npayxh2";
+    url = "https://github.com/nixos/nixpkgs/archive/f1707d8875276cfa110139435a7e8998b4c2a4fd.tar.gz";
+    sha256 = "14p7qvn3z58asx5naa2l5hvp1fddi186h385f7cj2ciw4pknrj9m";
   },
   dapptoolsOverrides ? {}
 }:
