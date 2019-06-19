@@ -68,15 +68,5 @@ in rec {
 
   pkgsVersions = mapAttrs (_: mkPkgs {}) dapptoolsVersions;
 
-  pkgs = mkPkgs {
-    extraOverlays = [
-      (self: super: rec {
-        # Packages overrides
-
-        # Use `solidityPackage` expression from >dapp/0.18.1 becuase missing
-        # features not yet in tagged version of dapptools.
-        inherit (pkgsVersions.latest) solidityPackage;
-      })
-    ];
-  } dapptoolsVersions.current;
+  pkgs = pkgsVersions.current;
 }
