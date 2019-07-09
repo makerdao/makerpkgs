@@ -10,7 +10,7 @@ in
     current = latest;
 
     latest = fetchDapptoolsVersion {
-      rev = "138946e3323376d7e3acf7536b094b0108b81636";
+      rev = "ccfd262553b44a6611a6e2e39e0abf3b5bb10c1f";
       ref = "master";
     };
 
