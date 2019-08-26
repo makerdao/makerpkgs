@@ -1,41 +1,46 @@
-{ dapptoolsOverrides ? {} }:
+{ fetchgit, dapptoolsOverrides ? {} }:
+
+# To generate `sha256` hash use:
+#
+#   `nix-prefetch-git --fetch-submodules https://github.com/dapphub/dapptools <COMMIT_HASH>`
 
 let
-  fetchDapptoolsVersion = { rev, ref ? "" }: fetchGit {
-    inherit rev ref;
+  fetchDapptoolsVersion = { rev, sha256 }: fetchgit {
+    inherit rev sha256;
     url = "https://github.com/dapphub/dapptools";
+    fetchSubmodules = true;
   };
 in
   rec {
     current = latest;
 
     latest = fetchDapptoolsVersion {
-      rev = "ccfd262553b44a6611a6e2e39e0abf3b5bb10c1f";
-      ref = "master";
+      rev = "2a25bc56d5ab1d691eed1f83b090b6e276de0f51";
+      sha256 = "1sclv4c4ah3q8p2nggkb8hz831l742cpxj19dgzikhcmgrpymzbw";
     };
 
     dapp-0_16_0 = fetchDapptoolsVersion {
       rev = "6943c76bfb8e0b1fce54c3d9bba6f0f7e50d2f5c";
-      ref = "dapp/0.16.0";
+      sha256 = "0w2fhwh4r6lzgvdav2vdm4wglydc7i6h461zfn91dh09sqjpzzfw";
     };
 
     dapp-0_18_0 = fetchDapptoolsVersion {
       rev = "deb8b07972a28c4753c82215ed0c0c5b94cb8e31";
-      ref = "dapp/0.18.0";
+      sha256 = "11l5rchvs7zbi02wjkfd5i25bv5ypjjh1bcdq3q2xb337ismgncb";
     };
 
     dapp-0_18_1 = fetchDapptoolsVersion {
       rev = "7207c0a92f0aaa19b60c84c14c1ed078892b0436";
-      ref = "dapp/0.18.1";
+      sha256 = "05vryrd8377bi3k8igvhzhjcbp7sq5jsmn75nm71z41yyvlhmrj2";
     };
 
     dapp-0_19_0 = fetchDapptoolsVersion {
       rev = "10388fb8083e9b3aff53a48afb65c746ade7093b";
-      ref = "master";
+      sha256 = "0hynnfgvyjwhzxkpbfnwvazvgcvgvb20rar56cji2ybig0kfaz7f";
     };
 
     hevm-0_28 = fetchDapptoolsVersion {
       rev = "214632b08a39872d50ceb3a726b0ca2d70d19e06";
-      ref = "master";
+      sha256 = "1qa3rrk51pjm2r8jnz294mj6x5qaxwzz6lzznnzy0782q5s1m5pr";
     };
-  }
+  } // dapptoolsOverrides

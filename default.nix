@@ -27,7 +27,7 @@ in rec {
       ] ++ extraOverlays;
     };
 
-  dapptoolsVersions = import ./dapptools-overlay.nix { inherit dapptoolsOverrides; };
+  dapptoolsVersions = (import pkgsSrc {}).callPackage ./dapptools-overlay.nix { inherit dapptoolsOverrides; };
   pkgsVersions = mapAttrs (_: mkPkgs {}) dapptoolsVersions;
 
   pkgs = pkgsVersions.current;
