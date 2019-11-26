@@ -15,8 +15,8 @@ in
     current = latest;
 
     latest = fetchDapptoolsVersion {
-      rev = "38dd682fa6c433e5720bd9022779ffc6a1ce00fc";
-      sha256 = "03gki4drbkidj0sjizc4kz12vyfk0496qc9bvzj5kb4wmcl7a9gj";
+      rev = "639819697c8d7e7d70cb09a78804b79d01ac066d";
+      sha256 = "1fjnm9aais1cl5wmpz8lpx0vapmjy08j2csn3zrw1jjwkxxv95yi";
     };
 
     dapp-0_16_0 = fetchDapptoolsVersion {
