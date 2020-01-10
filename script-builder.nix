@@ -81,7 +81,7 @@ in stdenv.mkDerivation ({
 
     find . -type f -perm /111 -regextype sed -regex '\./\([^/]*\|bin/.*\)' \
     | while read -r script; do
-      dest=$binDir/''${script#./}
+      dest=$binDir/''${script##*/}
       mkdir -p ''${dest%/*}
       wrapScript $dest < $script
     done
@@ -102,7 +102,7 @@ in stdenv.mkDerivation ({
 
     find . -type f -regextype sed -regex '\./\([^/]*\.json\|config/.*\)' \
     | while read -r config; do
-      dest=$configDir/''${config#./}
+      dest=$configDir/''${config##*/}
       mkdir -p ''${dest%/*}
       cp -v $config $dest
     done
