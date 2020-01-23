@@ -43,4 +43,9 @@ in
       rev = "214632b08a39872d50ceb3a726b0ca2d70d19e06";
       sha256 = "1qa3rrk51pjm2r8jnz294mj6x5qaxwzz6lzznnzy0782q5s1m5pr";
     };
+
+    dapp-0_26_0 = fetchDapptoolsVersion {
+      rev = "eb2380c990179ada97fc1ee376ad6f2a32bfe833";
+      sha256 = "0x3pf08qnxdlsfcv5wj62dhkfq24ngi0g4q5g7dy8c422k1mvmf9";
+    };
   } // dapptoolsOverrides
