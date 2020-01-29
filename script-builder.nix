@@ -93,11 +93,12 @@ in stdenv.mkDerivation ({
       wrapScript $dest < $script
     done
 
-    find . -type f -regextype sed -regex '\./lib/.*' ! -perm /111 \
+    find . -type f -regextype sed -regex '\./lib/.*' \
     | while read -r script; do
       dest=$libDir/''${script#./*/}
       mkdir -p ''${dest%/*}
       cp -v $script $dest
+      chmod -x $dest
     done
 
     find . -type f -regextype sed -regex '\./\([^/]*\.json\|config/.*\)' \
