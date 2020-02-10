@@ -1,20 +1,24 @@
 # MakerDAO Nix Packages
 
-Create a `pkgs.nix` file with and update `rev` to a relevant commit hash:
+Then put the following in your `default.nix`:
 
 ```
-import (fetchGit {
-  url = "https://github.com/makerdao/nixpkgs-pin";
-  rev = "d4b7fe56b38236566b3014d328be1bd9c7be7a2f";
-  ref = "master";
-})
+{ pkgs ? import (fetchGit {
+    url = "https://github.com/makerdao/nixpkgs-pin";
+    ref = "master";
+  }) {}
+}:
 ```
 
-Then put the following in your `default.nix` to be able to inject and override
-`nixpkgs` source:
+To freeze at a certain revision of this repo set `rev` to the commit hash you
+wish to pin:
 
 ```
-{ pkgsSrc ? (import ./pkgs.nix {}).pkgsSrc
-, pkgs ? (import ./pkgs.nix { inherit pkgsSrc; }).pkgs
-}: with pkgs;
+{ pkgs ? import (fetchGit {
+    url = "https://github.com/makerdao/nixpkgs-pin";
+    ref = "master";
+    rev = "aa8cea6eef397cb3c551b9e41f54f8f9f230fd9b";
+  }) {}
+}:
 ```
+
