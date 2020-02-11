@@ -6,6 +6,6 @@ let srcs = import ./srcs.nix; in
 
 import pkgs.path {
   overlays = [
-    (import ./maker-overlay.nix { inherit dapptoolsOverrides; })
+    (import ./overlay.nix { inherit dapptoolsOverrides; })
   ];
 }

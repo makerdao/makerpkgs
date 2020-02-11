@@ -16,10 +16,11 @@ in rec {
 
   dappPkgs = dappPkgsVersions.current;
 
-  inherit (dappPkgs) dapp ethsign seth solc;
-
-  # Add mcd-cli and sethret to local scope
-  mcd-cli = callPackage srcs.mcd-cli {};
+  # Inherit derivations from dapptools
+  inherit (dappPkgs)
+    dapp ethsign seth solc hevm solc-versions go-ethereum-unlimited evmdis
+    mcd dai setzer
+    ;
 
   sethret = (import srcs.sethret { inherit pkgs; }).sethret;
 
@@ -31,7 +32,7 @@ in rec {
     coreutils gnugrep gnused findutils
     bc jq
     solc
-    dapp ethsign seth mcd-cli
+    dapp ethsign seth mcd
   ];
 
   makerScriptPackage = self.callPackage ./script-builder.nix {};
