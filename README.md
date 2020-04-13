@@ -1,20 +1,22 @@
 # MakerDAO Nix Packages
 
-Create a `pkgs.nix` file with and update `rev` to a relevant commit hash:
+Put the following at the top of your `default.nix`:
 
 ```
-import (fetchGit {
-  url = "https://github.com/makerdao/nixpkgs-pin";
-  rev = "d4b7fe56b38236566b3014d328be1bd9c7be7a2f";
-  ref = "master";
-})
+{ pkgs ? import (fetchGit "https://github.com/makerdao/nixpkgs-pin") {}
+}:
 ```
 
-Then put the following in your `default.nix` to be able to inject and override
-`nixpkgs` source:
+**Recommended**: Pin a package set at a certain revision by specifying `rev`
+with the commit hash you wish to pin it at:
 
 ```
-{ pkgsSrc ? (import ./pkgs.nix {}).pkgsSrc
-, pkgs ? (import ./pkgs.nix { inherit pkgsSrc; }).pkgs
-}: with pkgs;
+{ pkgs ? import (fetchGit {
+    url = "https://github.com/makerdao/nixpkgs-pin";
+    rev = "aa8cea6eef397cb3c551b9e41f54f8f9f230fd9b";
+  }) {}
+}:
 ```
+
+You can also specify `ref` to point to a GIT branch or tag in combination with
+or without `rev`.
