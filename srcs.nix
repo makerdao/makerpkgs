@@ -5,6 +5,12 @@
     rev = "ea553d8c67c6a718448da50826ff5b6916dc9c59";
   };
 
+  setzer-mcd = fetchGit {
+    url = "https://github.com/makerdao/setzer-mcd";
+    ref = "master";
+    rev = "c528da640393a3d79ef314a7f86ae363d503a240";
+  };
+
   sethret = fetchGit {
     url = https://github.com/icetan/sethret.git;
     rev = "ef77915e2881011603491275f36b44bf2478b408";

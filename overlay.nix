@@ -22,6 +22,8 @@ in rec {
     mcd dai setzer
     ;
 
+  setzer-mcd = self.callPackage srcs.setzer-mcd {};
+
   sethret = (import srcs.sethret { inherit pkgs; }).sethret;
 
   dapp2nix = import srcs.dapp2nix { inherit pkgs; };
