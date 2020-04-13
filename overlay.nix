@@ -22,7 +22,8 @@ in rec {
   # Inherit derivations from dapptools
   inherit (dappPkgs)
     dapp ethsign seth solc hevm solc-versions go-ethereum-unlimited evmdis
-    mcd dai setzer
+    mcd dai setzer dapp2
+    solidityPackage
     ;
 
   setzer-mcd = self.callPackage srcs.setzer-mcd {};
