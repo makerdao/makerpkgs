@@ -1,14 +1,14 @@
 {
   nixpkgs = fetchGit {
     url = "https://github.com/nixos/nixpkgs-channels";
-    ref = "nixos-19.09";
     rev = "ea553d8c67c6a718448da50826ff5b6916dc9c59";
+    ref = "nixos-19.09";
   };
 
   setzer-mcd = fetchGit {
     url = "https://github.com/makerdao/setzer-mcd";
+    rev = "ba3cc5768d4d289ea3ddea3c9b3b77d8e931ea4b";
     ref = "master";
-    rev = "c528da640393a3d79ef314a7f86ae363d503a240";
   };
 
   sethret = fetchGit {
@@ -18,8 +18,8 @@
 
   dapp2nix = fetchGit {
     url = "https://github.com/icetan/dapp2nix";
-    ref = "v2.1.7";
     rev = "5d433e6d5d8b89da808a51a3c8a0559893efbaf5";
+    ref = "v2.1.7";
   };
 
   abi-to-dhall = fetchGit {
