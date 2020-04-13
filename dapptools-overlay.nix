@@ -11,7 +11,7 @@ let
     fetchSubmodules = true;
   };
 in rec {
-  current = seth-0_8_4;
+  default = seth-0_8_4;
   latest = seth-0_8_4;
 
   seth-0_8_4 = fetchDapptoolsVersion {

@@ -14,7 +14,10 @@ in rec {
     (_: dappPkgsSrc: import dappPkgsSrc {})
     dapptoolsVersions;
 
-  dappPkgs = dappPkgsVersions.current;
+  dappPkgs = if dappPkgsVersions ? current
+    then dappPkgsVersions.current
+    else dappPkgsVersions.default
+    ;
 
   # Inherit derivations from dapptools
   inherit (dappPkgs)
