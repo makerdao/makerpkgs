@@ -3,7 +3,7 @@
 self: super: with super;
 
 let
-  inherit (builtins) mapAttrs;
+  inherit (lib) mapAttrs;
   srcs = import ./srcs.nix;
 in rec {
   dapptoolsVersions = callPackage
