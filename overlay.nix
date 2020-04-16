@@ -1,45 +1,51 @@
-{ dapptoolsOverrides }:
+{ dapptoolsOverrides ? {} }:
 
 self: super: with super;
 
 let
   inherit (lib) mapAttrs;
   srcs = import ./srcs.nix;
-in rec {
-  dapptoolsVersions = callPackage
+
+  dappSources = callPackage
     ./dapptools-overlay.nix
     { inherit dapptoolsOverrides; };
 
   dappPkgsVersions = mapAttrs
     (_: dappPkgsSrc: import dappPkgsSrc {})
-    dapptoolsVersions;
+    dappSources;
 
-  dappPkgs = if dappPkgsVersions ? current
-    then dappPkgsVersions.current
-    else dappPkgsVersions.default
-    ;
+  makerpkgs = { dapptoolsOverrides ? {} }: rec {
+    inherit dappSources dappPkgsVersions;
 
-  # Inherit derivations from dapptools
-  inherit (dappPkgs)
-    dapp ethsign seth solc hevm solc-versions go-ethereum-unlimited evmdis
-    mcd dai setzer dapp2
-    solidityPackage
-    ;
+    dappPkgs = if dappPkgsVersions ? current
+      then dappPkgsVersions.current
+      else dappPkgsVersions.default
+      ;
 
-  setzer-mcd = self.callPackage srcs.setzer-mcd {};
+    # Inherit derivations from dapptools
+    inherit (dappPkgs)
+      dapp ethsign seth solc hevm solc-versions go-ethereum-unlimited evmdis
+      mcd dai setzer dapp2
+      solidityPackage
+      ;
 
-  sethret = (import srcs.sethret { inherit pkgs; }).sethret;
+    setzer-mcd = self.callPackage srcs.setzer-mcd {};
 
-  dapp2nix = import srcs.dapp2nix { inherit pkgs; };
+    sethret = (import srcs.sethret { inherit pkgs; }).sethret;
 
-  abi-to-dhall = import srcs.abi-to-dhall { inherit pkgs; };
+    dapp2nix = import srcs.dapp2nix { inherit pkgs; };
 
-  makerCommonScriptBins = with self; [
-    coreutils gnugrep gnused findutils
-    bc jq
-    solc
-    dapp ethsign seth mcd
-  ];
+    abi-to-dhall = import srcs.abi-to-dhall { inherit pkgs; };
 
-  makerScriptPackage = self.callPackage ./script-builder.nix {};
+    makerCommonScriptBins = with self; [
+      coreutils gnugrep gnused findutils
+      bc jq
+      solc
+      dapp ethsign seth mcd
+    ];
+
+    makerScriptPackage = self.callPackage ./script-builder.nix {};
+  };
+in (makerpkgs { inherit dapptoolsOverrides; }) // {
+  makerpkgs = makeOverridable makerpkgs { inherit dapptoolsOverrides; };
 }
