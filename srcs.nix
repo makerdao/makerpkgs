@@ -13,7 +13,7 @@
 
   sethret = fetchGit {
     url = https://github.com/icetan/sethret.git;
-    rev = "ef77915e2881011603491275f36b44bf2478b408";
+    rev = "b3cb07f64a5e05041cc7cfbc2e33f056ab59397f";
   };
 
   dapp2nix = fetchGit {

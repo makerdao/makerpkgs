@@ -1,0 +1,61 @@
+version: 2.1
+
+workflows:
+  version: 2
+  build-and-cache:
+    jobs:
+      - build
+      - cache:
+          context: NIX_BUILD
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
+
+commands:
+  setup-cache:
+    description: "Setup caches"
+    steps:
+      - run:
+          name: Install dependencies
+          command: |
+            apk --no-progress update
+            apk --no-progress add ca-certificates bash git
+            nix-env -iA cachix -f https://cachix.org/api/v1/install
+      - run:
+          name: Add build maker cache
+          command: cachix use maker
+      - run:
+          name: Add build dapp cache
+          command: cachix use dapp
+      - checkout
+
+executors:
+  nix-executor:
+    docker:
+      - image: nixos/nix@sha256:af330838e838cedea2355e7ca267280fc9dd68615888f4e20972ec51beb101d8
+    working_directory: /root/source
+
+jobs:
+  build:
+    executor: nix-executor
+    steps:
+      - setup-cache
+      - run:
+          name: Build
+          command: nix-build --no-out-link -A makerpkgs
+      - persist_to_workspace:
+          root: /
+          paths:
+            - nix
+  cache:
+    executor: nix-executor
+    steps:
+      - attach_workspace:
+          at: /
+      - setup-cache
+      - run:
+          name: Push to cache
+          command: nix-build --no-out-link -A makerpkgs | cachix push maker
