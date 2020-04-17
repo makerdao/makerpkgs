@@ -15,63 +15,20 @@ workflows:
                 - master
 
 commands:
-  setup-cache:
-    description: "Setup caches"
+  setup-cachix:
+    description: Setup Cachix
     steps:
       - run:
           name: Install dependencies
           command: |
             apk --no-progress update
-            apk --no-progress add ca-certificates bash git bzip2
+            apk --no-progress add ca-certificates git
             nix-env -iA cachix -f https://cachix.org/api/v1/install
       - run:
-          name: Add build maker cache
-          command: cachix use maker
-      - run:
-          name: Add build dapp cache
-          command: cachix use dapp
-  save-closure:
-    description: "Save closure to workspace"
-    parameters:
-      input:
-        type: string
-        default: build-paths
-      output:
-        type: string
-        default: closure
-    steps:
-      - run:
-          name: Export and compress closure
+          name: Add build caches
           command: |
-            mkdir -p closures
-            nix-store --export $(nix-store -qR $(cat << parameters.input >>)) \
-              | bzip2 > closures/<< parameters.output >>.bz2
-            cat << parameters.input >> > closures/<< parameters.output >>.paths
-          filters:
-            branches:
-              only:
-                - master
-      - persist_to_workspace:
-          root: .
-          paths:
-            - closures
-  restore-closure:
-    description: "Push closure from workspace to cachix"
-    parameters:
-      input:
-        type: string
-        default: closure
-      endpoint:
-        type: string
-        default: maker
-    steps:
-      - attach_workspace:
-          at: .
-      - run:
-          name: Import closure
-          command: |
-            bunzip2 < closures/<< parameters.input >>.bz2 | nix-store --import
-            cachix push << parameters.endpoint >> < closures/<< parameters.input >>.paths
+            cachix use maker
+            cachix use dapp
 
 executors:
   nix-executor:
@@ -83,16 +40,16 @@ jobs:
   build:
     executor: nix-executor
     steps:
-      - setup-cache
+      - setup-cachix
       - checkout
       - run:
           name: Build
-          command: nix-build --no-out-link -A makerpkgs > ./build-paths
-      - save-closure:
-          output: makerpkgs
+          command: nix-build --no-out-link -A makerpkgs
   cache:
     executor: nix-executor
     steps:
-      - setup-cache
-      - restore-closure:
-          input: makerpkgs
+      - setup-cachix
+      - checkout
+      - run:
+          name: Push to Cachix
+          command: nix-build --no-out-link -A makerpkgs | cachix push maker
