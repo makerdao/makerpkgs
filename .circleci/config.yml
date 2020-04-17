@@ -9,10 +9,10 @@ workflows:
           context: NIX_BUILD
           requires:
             - build
-          #filters:
-          #  branches:
-          #    only:
-          #      - master
+          filters:
+            branches:
+              only:
+                - master
 
 commands:
   setup-cache:
@@ -30,6 +30,48 @@ commands:
       - run:
           name: Add build dapp cache
           command: cachix use dapp
+  save-closure:
+    description: "Save closure to workspace"
+    parameters:
+      input:
+        type: string
+        default: build-paths
+      output:
+        type: string
+        default: closure
+    steps:
+      - run:
+          name: Export and compress closure
+          command: |
+            mkdir -p closures
+            nix-store --export $(nix-store -qR $(cat << parameters.input >>)) \
+              | bzip2 > closures/<< parameters.output >>.bz2
+            cat << parameters.input >> > closures/<< parameters.output >>.paths
+          filters:
+            branches:
+              only:
+                - master
+      - persist_to_workspace:
+          root: .
+          paths:
+            - closures
+  restore-closure:
+    description: "Push closure from workspace to cachix"
+    parameters:
+      input:
+        type: string
+        default: closure
+      endpoint:
+        type: string
+        default: maker
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Import closure
+          command: |
+            bunzip2 < closures/<< parameters.input >>.bz2 | nix-store --import
+            cachix push << parameters.endpoint >> < closures/<< parameters.input >>.paths
 
 executors:
   nix-executor:
@@ -45,22 +87,12 @@ jobs:
       - checkout
       - run:
           name: Build
-          command: |
-            mkdir -p closures
-            nix-store --export $(nix-store -qR $(nix-build --no-out-link -A makerpkgs)) \
-              | bzip2 > closures/makerpkgs
-      - persist_to_workspace:
-          root: closures
-          paths:
-            - makerpkgs
+          command: nix-build --no-out-link -A makerpkgs > ./build-paths
+      - save-closure:
+          output: makerpkgs
   cache:
     executor: nix-executor
     steps:
-      - attach_workspace:
-          at: closures
       - setup-cache
-      - run:
-          name: Push to cache
-          command:
-            cachix push --watch-store &
-            bunzip2 closures/makerpkgs | nix-store --import
+      - restore-closure:
+          input: makerpkgs
