@@ -9,10 +9,10 @@ workflows:
           context: NIX_BUILD
           requires:
             - build
-          filters:
-            branches:
-              only:
-                - master
+          #filters:
+          #  branches:
+          #    only:
+          #      - master
 
 commands:
   setup-cache:
@@ -22,7 +22,7 @@ commands:
           name: Install dependencies
           command: |
             apk --no-progress update
-            apk --no-progress add ca-certificates bash git
+            apk --no-progress add ca-certificates bash git bzip2
             nix-env -iA cachix -f https://cachix.org/api/v1/install
       - run:
           name: Add build maker cache
@@ -30,7 +30,6 @@ commands:
       - run:
           name: Add build dapp cache
           command: cachix use dapp
-      - checkout
 
 executors:
   nix-executor:
@@ -43,19 +42,25 @@ jobs:
     executor: nix-executor
     steps:
       - setup-cache
+      - checkout
       - run:
           name: Build
-          command: nix-build --no-out-link -A makerpkgs
+          command: |
+            mkdir -p closures
+            nix-store --export $(nix-store -qR $(nix-build --no-out-link -A makerpkgs)) \
+              | bzip2 > closures/makerpkgs
       - persist_to_workspace:
-          root: /
+          root: closures
           paths:
-            - nix
+            - makerpkgs
   cache:
     executor: nix-executor
     steps:
       - attach_workspace:
-          at: /
+          at: closures
       - setup-cache
       - run:
           name: Push to cache
-          command: nix-build --no-out-link -A makerpkgs | cachix push maker
+          command:
+            cachix push --watch-store &
+            bunzip2 closures/makerpkgs | nix-store --import
