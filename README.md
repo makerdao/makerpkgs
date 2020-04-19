@@ -14,10 +14,39 @@ nix run nixpkgs.cachix -c cachix use maker
 
 ### Installing a program from makerpkgs
 
+List `makerpkgs` specific packages:
+
+```sh
+nix-env -f https://github.com/makerdao/makerpkgs/tarball/master --description \
+  -qaPA makerpkgs
+```
+
+Search for a package:
+
+```sh
+nix search -f https://github.com/makerdao/makerpkgs/tarball/master seth
+```
+
 Installing `seth` from `makerpkgs`:
 
 ```sh
-nix-env -iA seth -f https://github.com/makerdao/makerpkgs/tarball/master
+nix-env -f https://github.com/makerdao/makerpkgs/tarball/master -iA seth
+```
+
+List available `dapptools` versions:
+
+```sh
+nix-env -f https://github.com/makerdao/makerpkgs/tarball/master --description \
+  -qaPA dappSources
+```
+
+Versions are then available under the path `dappPkgsVersions.<version>`.
+
+Installing `seth` from `dapptools` version `0.26.0`:
+
+```sh
+nix-env -f https://github.com/makerdao/makerpkgs/tarball/master \
+  -iA dappPkgsVersions.dapp-0_26_0.seth
 ```
 
 ### Using makerpkgs in another Nix expression
