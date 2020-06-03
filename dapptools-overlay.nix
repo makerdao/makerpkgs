@@ -13,8 +13,20 @@ let
     meta.description = "Dapptools source @ ${version}";
   });
 in rec {
-  default = seth-0_8_4;
-  latest = seth-0_8_4;
+  default = master-20200622;
+  latest = master-20200622;
+
+  master-20200622 = fetchDapptoolsVersion {
+    version = "master-20200622";
+    rev = "3c86b8008c14711de6e99a97634ea7b21cd34df8";
+    sha256 = "1yw93xmgrmm5ppckf2nhyqijmdr7f7s195clkyijd2w8y0dj1f53";
+  };
+
+  dapp-0_27_0 = fetchDapptoolsVersion {
+    version = "dapp-0.27.0";
+    rev = "8f6c557d19a41c3b3d8ad8be7ecf7e90afd0af89";
+    sha256 = "0w6gsvhkr7gg64bfnngdggxg5lz8jqmf4ppn0djxfhd9hjay7bzz";
+  };
 
   seth-0_8_4 = fetchDapptoolsVersion {
     version = "seth-0.8.4";

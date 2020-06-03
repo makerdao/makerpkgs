@@ -25,7 +25,7 @@ let
     # Inherit derivations from dapptools
     inherit (dappPkgs)
       dapp ethsign seth solc hevm solc-versions go-ethereum-unlimited evmdis
-      mcd dai setzer dapp2
+      dapp2
       solidityPackage
       ;
 
@@ -41,7 +41,7 @@ let
       coreutils gnugrep gnused findutils
       bc jq
       solc
-      dapp ethsign seth mcd
+      dapp ethsign seth
     ];
 
     makerScriptPackage = self.callPackage ./script-builder.nix {};
