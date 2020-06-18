@@ -14,7 +14,13 @@ let
   });
 in rec {
   default = seth-0_8_4;
-  latest = seth-0_8_4;
+  latest = seth-0_9_0;
+
+  seth-0_9_0 = fetchDapptoolsVersion {
+    version = "seth-0.9.0";
+    rev = "857dcff8d4b19a4f0ad655f2150cb989844b1dbf";
+    sha256 = "0axzqm035060agwja47plzr89r82pkzzqvd73w4j91dxxkrdvl7a";
+  };
 
   seth-0_8_4 = fetchDapptoolsVersion {
     version = "seth-0.8.4";
