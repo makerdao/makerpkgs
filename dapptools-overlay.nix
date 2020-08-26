@@ -13,8 +13,14 @@ let
     meta.description = "Dapptools source @ ${version}";
   });
 in rec {
-  default = master-20200622;
-  latest = master-20200622;
+  default = hevm-0_41_0;
+  latest = hevm-0_41_0;
+
+  hevm-0_41_0 = fetchDapptoolsVersion {
+    version = "hevm-0.41.0";
+    rev = "34b2799a26623464c4ab8b7900c6b268adf7d36f";
+    sha256 = "13c5v2n1jbzgwwif8rm250dvznxzmypv37xl2075a1dh6jncwhiq";
+  };
 
   master-20200622 = fetchDapptoolsVersion {
     version = "master-20200622";
