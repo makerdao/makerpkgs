@@ -1,6 +1,6 @@
-let srcs = import ./srcs.nix; in
+let sources = import ./nix/sources.nix; in
 
-{ pkgs ? import srcs.nixpkgs {}
+{ pkgs ? import sources.nixpkgs {}
 , dapptoolsOverrides ? {}
 }:
 

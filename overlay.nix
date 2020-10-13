@@ -4,7 +4,7 @@ self: super: with super;
 
 let
   inherit (lib) mapAttrs;
-  srcs = import ./srcs.nix;
+  sources = import ./nix/sources.nix;
 
   dappSources = callPackage
     ./dapptools-overlay.nix
@@ -29,13 +29,13 @@ let
       solidityPackage
       ;
 
-    setzer-mcd = self.callPackage srcs.setzer-mcd {};
+    setzer-mcd = self.callPackage sources.setzer-mcd {};
 
-    sethret = (import srcs.sethret { inherit pkgs; }).sethret;
+    sethret = (import sources.sethret { inherit pkgs; }).sethret;
 
-    dapp2nix = import srcs.dapp2nix { inherit pkgs; };
+    dapp2nix = import sources.dapp2nix { inherit pkgs; };
 
-    abi-to-dhall = import srcs.abi-to-dhall { inherit pkgs; };
+    abi-to-dhall = import sources.abi-to-dhall { inherit pkgs; };
 
     makerCommonScriptBins = with self; [
       coreutils gnugrep gnused findutils
