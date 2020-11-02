@@ -54,20 +54,14 @@ nix-env -f https://github.com/makerdao/makerpkgs/tarball/master \
 Put the following at the top of your `default.nix`:
 
 ```nix
-{ pkgs ? import (fetchGit "https://github.com/makerdao/makerpkgs") {}
+{ pkgs ? import (fetchTarball "https://github.com/makerdao/makerpkgs/tarball/master") {}
 }:
 ```
 
-**Recommended**: Pin a package set at a certain revision by specifying `rev`
-with the commit hash you wish to pin it at:
+**Recommended**: Pin a package set at a certain revision by specifying the
+commit hash you wish to pin it at:
 
 ```nix
-{ pkgs ? import (fetchGit {
-    url = "https://github.com/makerdao/makerpkgs";
-    rev = "86958dbb74d0f2e5a22bc0f397fe943140dfef41";
-  }) {}
+{ pkgs ? import (fetchTarball "https://github.com/makerdao/makerpkgs/tarball/86958dbb74d0f2e5a22bc0f397fe943140dfef41") {}
 }:
 ```
-
-You can also specify `ref` to point to a GIT branch or tag in combination with
-or without `rev`.

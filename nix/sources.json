@@ -1,0 +1,74 @@
+{
+    "abi-to-dhall": {
+        "branch": "master",
+        "description": "Generate a Dhall based DSL for deploying Ethereum contracts.",
+        "homepage": "",
+        "owner": "icetan",
+        "repo": "abi-to-dhall",
+        "rev": "c7e8518c6c8ef3ab6e6b0cf7c141dc8956dfaae3",
+        "sha256": "1f2lfcjjvv0r9nwnxv2ash9yyhk65mqxwz35jjdkclxrl37xws8s",
+        "type": "tarball",
+        "url": "https://github.com/icetan/abi-to-dhall/archive/c7e8518c6c8ef3ab6e6b0cf7c141dc8956dfaae3.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "dapp2nix": {
+        "branch": "master",
+        "description": "Manage Dappsys dependencies with Nix.",
+        "homepage": "",
+        "owner": "icetan",
+        "repo": "dapp2nix",
+        "rev": "5d433e6d5d8b89da808a51a3c8a0559893efbaf5",
+        "sha256": "0w8z5xiql3l867n9kvbvdx89nw31lifj7pqhmy86rx41fmzin6ap",
+        "type": "tarball",
+        "url": "https://github.com/icetan/dapp2nix/archive/5d433e6d5d8b89da808a51a3c8a0559893efbaf5.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "niv": {
+        "branch": "master",
+        "description": "Easy dependency management for Nix projects",
+        "homepage": "https://github.com/nmattia/niv",
+        "owner": "nmattia",
+        "repo": "niv",
+        "rev": "9d35b9e4837ab88517210b1701127612c260eccf",
+        "sha256": "0q50xhnm8g2yfyakrh0nly4swyygxpi0a8cb9gp65wcakcgvzvdh",
+        "type": "tarball",
+        "url": "https://github.com/nmattia/niv/archive/9d35b9e4837ab88517210b1701127612c260eccf.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "release-20.03",
+        "description": "Nix Packages collection",
+        "homepage": "",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ea553d8c67c6a718448da50826ff5b6916dc9c59",
+        "sha256": "0g9smv36sk42rfyzi8wyq2wl11c5l0qaldij1zjdj60s57cl3wgj",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/ea553d8c67c6a718448da50826ff5b6916dc9c59.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "sethret": {
+        "branch": "master",
+        "description": null,
+        "homepage": "",
+        "owner": "icetan",
+        "repo": "sethret",
+        "rev": "b3cb07f64a5e05041cc7cfbc2e33f056ab59397f",
+        "sha256": "13kmh5lyj72l8wid278gf2i9yyj3h69vhi0kp0mhi9mbmjbjcqp3",
+        "type": "tarball",
+        "url": "https://github.com/icetan/sethret/archive/b3cb07f64a5e05041cc7cfbc2e33f056ab59397f.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "setzer-mcd": {
+        "branch": "master",
+        "description": null,
+        "homepage": "",
+        "owner": "makerdao",
+        "repo": "setzer-mcd",
+        "rev": "ba3cc5768d4d289ea3ddea3c9b3b77d8e931ea4b",
+        "sha256": "0mnw334yfcw1a0w806ns946fxr15hnr65an51bi4z2jzmpdgyfa2",
+        "type": "tarball",
+        "url": "https://github.com/makerdao/setzer-mcd/archive/ba3cc5768d4d289ea3ddea3c9b3b77d8e931ea4b.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}
