@@ -6,8 +6,20 @@
 #
 
 rec {
-  default = hevm-0_42_0;
-  latest = hevm-0_42_0;
+  default = seth-0_9_3;
+  latest = seth-0_9_3;
+
+  master-20201209 = fetchTarball {
+    name = "master-20201209";
+    url = "https://github.com/dapphub/dapptools/tarball/edc027a739fa7b751b75302cda68c584fd6cac1";
+    sha256 = "00mfgc89lbrm3k3ddrfppga0i8rpnmd6p9b0hq6v88inckfjxj0y";
+  };
+
+  seth-0_9_3 = fetchTarball {
+    name = "dapptools-seth-0_9_3";
+    url = "https://github.com/dapphub/dapptools/tarball/e855b6544270769fe00987fe0265cc1af6bf47a6";
+    sha256 = "1pk73qqb78ngwbjbbjn4x80aa6xnhywcy6zyykq7crnfxpgdgmj0";
+  };
 
   hevm-0_42_0 = fetchTarball {
     name = "dapptools-hevm-0_42_0";
@@ -24,7 +36,7 @@ rec {
   #
   # $ nix-prefetch-git --fetch-submodules https://github.com/dapphub/dapptools <COMMIT_HASH>
   #
-  # DEPRICATED:
+  # DEPRECATED:
   #
   fetchDapptoolsVersion = { rev, sha256, version ? rev }: (fetchgit {
     inherit rev sha256;
