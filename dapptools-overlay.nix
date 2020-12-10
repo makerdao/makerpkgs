@@ -6,13 +6,13 @@
 #
 
 rec {
-  default = seth-0_9_3;
-  latest = seth-0_9_3;
+  default = hevm-0_43_1;
+  latest = hevm-0_43_1;
 
-  master-20201209 = fetchTarball {
-    name = "master-20201209";
-    url = "https://github.com/dapphub/dapptools/tarball/edc027a739fa7b751b75302cda68c584fd6cac1";
-    sha256 = "00mfgc89lbrm3k3ddrfppga0i8rpnmd6p9b0hq6v88inckfjxj0y";
+  hevm-0_43_1 = fetchTarball {
+    name = "dapptools-hevm-0_43_1";
+    url = "https://github.com/dapphub/dapptools/tarball/75809c1ee826af83a65d2fc1411be4a78df7bd59";
+    sha256 = "17iwb6q6gkxmqvzaf086xkjq271n5zwrbsz58786bxd6a8ld1r8q";
   };
 
   seth-0_9_3 = fetchTarball {
