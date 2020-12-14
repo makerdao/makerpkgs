@@ -14,13 +14,18 @@ let
     (_: dappPkgsSrc: import dappPkgsSrc {})
     dappSources;
 
-  makerpkgs = { dapptoolsOverrides ? {} }: rec {
-    inherit dappSources dappPkgsVersions;
+  dappPkgs = if dappPkgsVersions ? current
+    then dappPkgsVersions.current
+    else dappPkgsVersions.default
+    ;
 
-    dappPkgs = if dappPkgsVersions ? current
-      then dappPkgsVersions.current
-      else dappPkgsVersions.default
-      ;
+  solc-static-versions = mapAttrs (n: v: runCommand "solc-${v.version}-static" {} ''
+    mkdir -p $out/bin
+    ln -s ${v}/bin/solc* $out/bin/solc
+  '') dappPkgs.solc-static-versions;
+
+  makerpkgs = { dapptoolsOverrides ? {} }: rec {
+    inherit dappSources dappPkgsVersions dappPkgs solc-static-versions;
 
     # Inherit derivations from dapptools
     inherit (dappPkgs)
