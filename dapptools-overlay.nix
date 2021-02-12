@@ -9,6 +9,12 @@ rec {
   default = hevm-0_43_1;
   latest = hevm-0_43_1;
 
+  temp-fix-json = fetchTarball {
+    name = "dapptools-temp-fix-json";
+    url = "https://github.com/dapphub/dapptools/tarball/3e114963fe6299ebba1d6c319da8f85738dc991d";
+    sha256 = "0na2778ky7cg5v4ixidgcai572avilj9plxkiv5sq3v3dncby7wl";
+  };
+
   hevm-0_43_1 = fetchTarball {
     name = "dapptools-hevm-0_43_1";
     url = "https://github.com/dapphub/dapptools/tarball/75809c1ee826af83a65d2fc1411be4a78df7bd59";
