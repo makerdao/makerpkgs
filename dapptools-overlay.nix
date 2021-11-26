@@ -6,8 +6,14 @@
 #
 
 rec {
-  default = hevm-0_43_1;
-  latest = hevm-0_43_1;
+  default = hevm-0_49_0;
+  latest = hevm-0_49_0;
+
+  hevm-0_49_0 = fetchTarball {
+    name = "dapptools-hevm-0_49_0";
+    url = "https://github.com/dapphub/dapptools/tarball/hevm/0.49.0";
+    sha256 = "1aan8mq7mbj90hfblha92wynvxyckrlwsnq7av4mqms574fmq842";
+  };
 
   master-20200217 = fetchTarball {
     name = "dapptools-master-20200217";
