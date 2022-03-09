@@ -6,8 +6,14 @@
 #
 
 rec {
-  default = hevm-0_49_0;
-  latest = hevm-0_49_0;
+  default = rm-dapp2-refs;
+  latest = rm-dapp2-refs;
+
+  rm-dapp2-refs = fetchTarball {
+    name = "rm-dapp2-refs";
+    url = "https://github.com/gbalabasquer/dapptools/tarball/42cfd025f01b6ed90841f514d450a4cc9339ffda";
+    sha256 = "0pk3lhpapjz5ykzz3bn2g6hzjyi5fz16dysiwgs7ark106qwr30x";
+  };
 
   master-20220308 = fetchTarball {
     name = "dapptools-master-20220308";
