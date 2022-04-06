@@ -15,6 +15,12 @@ rec {
     sha256 = "0pk3lhpapjz5ykzz3bn2g6hzjyi5fz16dysiwgs7ark106qwr30x";
   };
 
+  master-20220325 = fetchTarball {
+    name = "dapptools-master-20220325";
+    url = "https://github.com/dapphub/dapptools/tarball/b6000ee501a0b744ac47f0c8e175298c48ed53a2";
+    sha256 = "00c2dl90ic138g5f9m4whjk25cnvfncx8lcg8ggxmb3270s9ba6v";
+  };
+
   master-20220308 = fetchTarball {
     name = "dapptools-master-20220308";
     url = "https://github.com/dapphub/dapptools/tarball/42a807306188cd20b1fe925ffe469979e2802b82";
