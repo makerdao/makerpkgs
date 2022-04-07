@@ -30,7 +30,6 @@ let
     # Inherit derivations from dapptools
     inherit (dappPkgs)
       dapp ethsign seth solc hevm solc-versions go-ethereum-unlimited evmdis
-      dapp2
       solidityPackage
       ;
 
