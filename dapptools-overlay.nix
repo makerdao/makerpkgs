@@ -6,8 +6,14 @@
 #
 
 rec {
-  default = master-20220406;
-  latest = master-20220406;
+  default = master-20220524;
+  latest = master-20220524;
+
+  master-20220524 = fetchTarball {
+    name = "dapptools-master-20220524";
+    url = "https://github.com/dapphub/dapptools/tarball/923d6feaf1dbafbafe0c6ec8daf1e2430b06b8d1";
+    sha256 = "0ha591rlsdxwg50pw8xya0rypin7msnap7jjxhfmmxqvs2vnlkxd";
+  };
 
   master-20220406 = fetchTarball {
     name = "dapptools-master-20220406";
