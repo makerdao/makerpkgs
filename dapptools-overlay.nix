@@ -9,6 +9,12 @@ rec {
   default = master-20220524;
   latest = master-20220524;
 
+  master-20220803 = fetchTarball {
+    name = "dapptools-master-20220803";
+    url = "https://github.com/dapphub/dapptools/tarball/bf80834c652f3637dfe64bd5d05addf3c53add83";
+    sha256 = "1ngnm7vx63xc2lmhbjv4qvkxjg91vc3nfdppvvc1l0s876siyp9c";
+  };
+
   master-20220524 = fetchTarball {
     name = "dapptools-master-20220524";
     url = "https://github.com/dapphub/dapptools/tarball/923d6feaf1dbafbafe0c6ec8daf1e2430b06b8d1";
